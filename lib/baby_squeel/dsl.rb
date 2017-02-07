@@ -93,16 +93,6 @@ module BabySqueel
       sql _scope.connection.quote(value)
     end
 
-    # Evaluates a DSL block. If arity is given, this method
-    # `yield` itself, rather than `instance_eval`.
-    def evaluate(&block)
-      if block.arity.zero?
-        instance_eval(&block)
-      else
-        yield(self)
-      end
-    end
-
     private
 
     def method_missing(meth, *args, &block)

@@ -7,6 +7,14 @@ require 'baby_squeel/active_record/base'
 require 'baby_squeel/active_record/query_methods'
 require 'baby_squeel/active_record/where_chain'
 
+# FIXME: This DEFINITELY doesn't belong here.
+class Arel::Nodes::TableAlias
+  def on(node = nil, &block)
+    table = BabySqueel::Table.new(self)
+    table.on(node, &block)
+  end
+end
+
 module BabySqueel
   class << self
     # Configures BabySqueel using the given block

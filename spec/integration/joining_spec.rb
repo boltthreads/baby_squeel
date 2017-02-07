@@ -1,6 +1,23 @@
 require 'spec_helper'
 
 describe BabySqueel::ActiveRecord::QueryMethods, '#joining' do
+  context 'joining relations' do
+    it 'allows on to accept a block' do
+      authors = Author.where(id: 2)
+      relation = Post.joining do
+        authors.as('a').on { a.id == author_id }
+      end
+
+      expect(relation).to produce_sql(<<-EOSQL)
+        SELECT "posts".* FROM "posts"
+        INNER JOIN (
+          SELECT "authors".* FROM "authors"
+          WHERE "authors"."id" = 2
+        ) a ON a."id" = a."author_id"
+      EOSQL
+    end
+  end
+
   context 'when joining explicitly' do
     it 'inner joins' do
       relation = Post.joining {
