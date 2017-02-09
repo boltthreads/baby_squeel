@@ -30,3 +30,11 @@ class Picture < ActiveRecord::Base
   belongs_to :comment
   belongs_to :imageable, polymorphic: true
 end
+
+class Station < ActiveRecord::Base
+  has_many :shows
+end
+
+class Show < ActiveRecord::Base
+  belongs_to :station
+end

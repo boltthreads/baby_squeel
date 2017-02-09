@@ -279,4 +279,33 @@ describe BabySqueel::ActiveRecord::WhereChain do
       expect(squeel.where_values_hash).to eq(rails.where_values_hash)
     end
   end
+
+  describe "joining tables with matching attributes"  do
+    context "where the parent table column_type is float and the child table column_type is string" do
+      context "wheres based on the child model's attribute" do
+        it 'uses the column_type of the child' do
+          relation = Station.joins(:shows).where.has { shows.frequency == 'daily' }
+
+          expect(relation).to produce_sql(<<-EOSQL)
+            SELECT "stations".* FROM "stations"
+            INNER JOIN "shows" ON "stations"."id" = "shows"."station_id"
+            WHERE ("shows"."frequency" = "daily")
+          EOSQL
+        end
+      end
+
+      context "wheres based on the parent model's attribute" do
+        it 'uses the column_type of the parent' do
+          relation = Show.joins(:station).where.has { station.frequency == 4.2 }
+
+          expect(relation).to produce_sql(<<-EOSQL)
+            SELECT "shows".* FROM "shows"
+            INNER JOIN "stations" ON "stations"."id" = "shows"."station_id"
+            WHERE "stations"."frequency" = 4.2
+          EOSQL
+        end
+      end
+    end
+  end
+
 end

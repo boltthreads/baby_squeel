@@ -32,4 +32,13 @@ ActiveRecord::Schema.define do
     t.references :imageable, polymorphic: true
     t.timestamps null: false
   end
+
+  create_table :stations, force: true do |t|
+    t.float :frequency
+  end
+
+  create_table :shows, force: true do |t|
+    t.string :frequency
+    t.belongs_to :station
+  end
 end
