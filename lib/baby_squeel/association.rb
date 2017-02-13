@@ -99,7 +99,7 @@ module BabySqueel
     if ActiveRecord::VERSION::MAJOR >= 5
       def build_where_clause(other)
         if valid_where_clause?(other)
-          relation = @parent._scope.where(nil)
+          relation = @parent._scope.all
           factory = relation.send(:where_clause_factory)
           factory.build({ _reflection.name => other }, [])
         else

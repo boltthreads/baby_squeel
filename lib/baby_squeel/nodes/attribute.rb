@@ -17,6 +17,14 @@ module BabySqueel
         end
       end
 
+      def not_in(rel)
+        if rel.is_a? ::ActiveRecord::Relation
+          ::Arel::Nodes::NotIn.new(self, Arel.sql(rel.to_sql))
+        else
+          super
+        end
+      end
+
       def _arel
         if @parent.kind_of? BabySqueel::Association
           @parent.find_alias[@name]

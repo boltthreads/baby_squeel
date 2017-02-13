@@ -59,19 +59,11 @@ describe BabySqueel::ActiveRecord::WhereChain do
         (title =~ 'Simp%').or(author.name == 'meatloaf')
       }
 
-      if ActiveRecord::VERSION::STRING < '4.2.0'
-        expect(relation).to produce_sql(<<-EOSQL)
-          SELECT "posts".* FROM "posts"
-          INNER JOIN "authors" ON "authors"."id" = "posts"."author_id"
-          WHERE (("posts"."title" LIKE 'Simp%' OR "authors"."name" = 'meatloaf'))
-        EOSQL
-      else
-        expect(relation).to produce_sql(<<-EOSQL)
-          SELECT "posts".* FROM "posts"
-          INNER JOIN "authors" ON "authors"."id" = "posts"."author_id"
-          WHERE ("posts"."title" LIKE 'Simp%' OR "authors"."name" = 'meatloaf')
-        EOSQL
-      end
+      expect(relation).to produce_sql(<<-EOSQL)
+        SELECT "posts".* FROM "posts"
+        INNER JOIN "authors" ON "authors"."id" = "posts"."author_id"
+        WHERE ("posts"."title" LIKE 'Simp%' OR "authors"."name" = 'meatloaf')
+      EOSQL
     end
 
     it 'wheres on associations' do

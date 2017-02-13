@@ -1,6 +1,17 @@
 ## [Unreleased]
 
-*Nothing yet.*
+Nothing to see yet!
+
+## [1.1.0] - 2017-02-10
+> This version drops support for Active Record 4.1. If you're stil on 4.1, you should seriously consider upgrading to at least 4.2.
+
+### Added
+- DSLs for ActiveRecord::Relation::Calculations. You can now use `plucking`, `counting`, `summing`, `averaging`, `minimizing`, and `maximizing`.
+
+## [1.0.3] - 2017-02-09
+### Added
+- Support for `pluck`.
+- Support for `not_in`.
 
 ## [1.0.2] - 2017-02-07
 ### Added
@@ -88,7 +99,9 @@
 ### Added
 - Initial support for selects, orders, wheres, and joins.
 
-[Unreleased]: https://github.com/rzane/baby_squeel/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/rzane/baby_squeel/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/rzane/baby_squeel/compare/v1.0.3...v1.1.0
+[1.0.3]: https://github.com/rzane/baby_squeel/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/rzane/baby_squeel/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/rzane/baby_squeel/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/rzane/baby_squeel/compare/v0.3.1...v1.0.0

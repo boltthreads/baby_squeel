@@ -5,19 +5,11 @@ require 'baby_squeel/association'
 module BabySqueel
   class DSL < Relation
     class << self
-      # Evaluates a block and unwraps the nodes
-      def evaluate(scope, &block)
-        Nodes.unwrap evaluate!(scope, &block)
+      def evaluate(scope, &block) # :nodoc:
+        Nodes.unwrap new(scope).evaluate(&block)
       end
 
-      # Evaluates a block in the context of a DSL instance
-      def evaluate!(scope, &block)
-        new(scope).evaluate(&block)
-      end
-
-      # Evaluates a block in the context of a new DSL instance
-      # and passes all arguments to the block.
-      def evaluate_sifter(scope, *args, &block)
+      def evaluate_sifter(scope, *args, &block) # :nodoc:
         evaluate scope do |root|
           root.instance_exec(*args, &block)
         end

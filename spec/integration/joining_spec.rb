@@ -154,23 +154,13 @@ describe BabySqueel::ActiveRecord::QueryMethods, '#joining' do
         (author.outer.name == 'Rick') | (parent.outer.author.outer.name == 'Flair')
       end
 
-      if ActiveRecord::VERSION::STRING > '4.1.x'
-        expect(relation).to produce_sql(<<-EOSQL)
-          SELECT "posts".* FROM "posts"
-          LEFT OUTER JOIN "authors" ON "authors"."id" = "posts"."author_id"
-          LEFT OUTER JOIN "posts" "parents_posts" ON "parents_posts"."id" = "posts"."parent_id"
-          LEFT OUTER JOIN "authors" "authors_posts" ON "authors_posts"."id" = "parents_posts"."author_id"
-          WHERE ("authors"."name" = 'Rick' OR "authors_posts"."name" = 'Flair')
-        EOSQL
-      else
-        expect(relation).to produce_sql(<<-EOSQL)
-          SELECT "posts".* FROM "posts"
-          LEFT OUTER JOIN "authors" ON "authors"."id" = "posts"."author_id"
-          LEFT OUTER JOIN "posts" "parents_posts" ON "parents_posts"."id" = "posts"."parent_id"
-          LEFT OUTER JOIN "authors" "authors_posts" ON "authors_posts"."id" = "parents_posts"."author_id"
-          WHERE (("authors"."name" = 'Rick' OR "authors_posts"."name" = 'Flair'))
-        EOSQL
-      end
+      expect(relation).to produce_sql(<<-EOSQL)
+        SELECT "posts".* FROM "posts"
+        LEFT OUTER JOIN "authors" ON "authors"."id" = "posts"."author_id"
+        LEFT OUTER JOIN "posts" "parents_posts" ON "parents_posts"."id" = "posts"."parent_id"
+        LEFT OUTER JOIN "authors" "authors_posts" ON "authors_posts"."id" = "parents_posts"."author_id"
+        WHERE ("authors"."name" = 'Rick' OR "authors_posts"."name" = 'Flair')
+      EOSQL
     end
 
     describe 'polymorphism' do

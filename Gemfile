@@ -13,4 +13,5 @@ group :test do
   gem 'pry'
   gem 'coveralls'
   gem 'simplecov'
+  gem 'filewatcher'
 end

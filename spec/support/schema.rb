@@ -8,6 +8,7 @@ ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define do
   create_table :authors, force: true do |t|
     t.string :name
+    t.integer :age
     t.boolean :ugly
     t.timestamps null: false
   end
@@ -16,6 +17,7 @@ ActiveRecord::Schema.define do
     t.string :title
     t.belongs_to :author
     t.datetime :published_at
+    t.integer :view_count
     t.integer :parent_id
     t.timestamps null: false
   end

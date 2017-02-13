@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Ray Zane']
   spec.email         = ['ray@promptworks.com']
 
-  spec.summary       = 'A tiny squeel implementation without all of the evil.'
+  spec.summary       = 'An expressive query DSL for Active Record 4 and 5.'
   spec.description   = spec.summary
   spec.homepage      = 'https://github.com/rzane/baby_squeel'
   spec.license       = 'MIT'
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir.glob('{lib/**/*,*.{md,txt,gemspec}}')
 
-  spec.add_dependency 'activerecord', '>= 4.1.0'
+  spec.add_dependency 'activerecord', '>= 4.2.0'
   spec.add_dependency 'polyamorous', '~> 1.3'
 
   spec.add_development_dependency 'bundler', '~> 1.11'
